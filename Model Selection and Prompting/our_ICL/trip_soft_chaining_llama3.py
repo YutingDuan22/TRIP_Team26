@@ -1,4 +1,3 @@
-#no_role_no_dict
 import sys
 sys.path.append("../")
 
@@ -35,13 +34,15 @@ import pandas as pd
 
 if __name__ == '__main__':
     parser = ArgumentParser()
-    parser.add_argument("--lm_backbone", default="gpt3", choices=["gpt3", "gpt4", "chatgpt", "alpaca13b", "vicuna13b",  "llama7B", "llama13B", "llama30B", "llama65B","llama70B","Llama-3.1-8B-Instruct"])
+    parser.add_argument("--lm_backbone", default="gpt3", choices=["gpt3", "gpt4", "chatgpt", "alpaca13b", "vicuna13b",  "llama7B", "llama13B", "llama30B", "llama65B","llama70B", "Llama-3.1-8B-Instruct", "llama3-8B", "mistral7B-instruct", "mistral7B"])
     parser.add_argument("--model_path", default=None, type=str)
     parser.add_argument("--local_only", action="store_true", default=False)
-    parser.add_argument("--demo_choice", default="stories-4", choices=["stories-4", "balanced-6"]) #*
+    parser.add_argument("--demo_choice", default="stories-4", choices=["stories-4", "balanced-6", "custom"]) #*
+    parser.add_argument("--example_list", default=None, nargs='+', type=str)
     parser.add_argument("--api_key", type=str)
     parser.add_argument("--ask_implausible", type=bool, default=False)
     parser.add_argument("--analyze_attention", action="store_true", default=False)
+    parser.add_argument("--role", type=str, choices=["careful_story_editor", "interior_decorator"])
 
     parser.add_argument("--reasoning_depth", choices=["accurate", "consistent", "verifiable"], default='verifiable') #*
     parser.add_argument("--reasoning_direction", choices=["top-down"], default='top-down')  #*
@@ -103,8 +104,8 @@ if __name__ == '__main__':
         else:
             model, tokenizer = None, None
 
-    if args.lm_backbone in ['llama7B', 'llama13B', 'llama30B', 'llama65B',"Llama-3.1-8B-Instruct"]:
-        print("Setting up LLaMA...")
+    if args.lm_backbone in ['llama7B', 'llama13B', 'llama30B', 'llama65B', "Llama-3.1-8B-Instruct", "llama3-8B", "mistral7B-instruct", "mistral7B"]:
+        print("Setting up LLaMA or Mistral...")
         if not args.skip_prompting and not args.cache_only:
             if args.model_path is None and args.local_only:
                 raise ValueError("Must specify --model_path if --local_only is set.")
@@ -124,7 +125,7 @@ if __name__ == '__main__':
             else:
                 device_map = "auto"
 
-            if args.lm_backbone == 'Llama-3.1-8B-Instruct':
+            if args.lm_backbone in ['Llama-3.1-8B-Instruct', "llama3-8B", "mistral7B-instruct", "mistral7B"]:
                 generator = pipeline(
                     "text-generation",
                     model=model_path,
@@ -219,6 +220,8 @@ if __name__ == '__main__':
     elif args.demo_choice == "balanced-6":
         # sample 2 stories for 3 types of conflict
         selected_story_example_ids = balanced_sample_story_ids(train_dataset, select_n_stories_for_each_category=2) # If encounters any error, change a random seed!
+    elif args.demo_choice =="custom":
+        selected_story_example_ids = args.example_list
     else:
         raise Exception("demo_choice out of options")
     print("selected story IDs:", selected_story_example_ids)
@@ -306,7 +309,7 @@ if __name__ == '__main__':
                 story_prompt = story_pair_prompt_generator(stories_info[0], stories_info[1])
 
                 # Prompt the LM 
-                if args.lm_backbone in ['gpt3', "llama7B", "llama13B", "llama30B", "llama65B","Llama-3.1-8B-Instruct"]:
+                if args.lm_backbone in ['gpt3', "llama7B", "llama13B", "llama30B", "llama65B", "Llama-3.1-8B-Instruct", "llama3-8B", "mistral7B-instruct", "mistral7B"]:
                     prompt = ""
                     # To fully specify physical state prediction step, prepend several demos of it covering all physical attributes first
                     ##########################################################
@@ -325,10 +328,10 @@ if __name__ == '__main__':
                     if args.lm_backbone == 'gpt3':
                         story_generated_text = prompt_gpt3_with_caching(prompt, args, lm_cache, example_id, max_tokens=128, 
                                                                         token_counts=TOKEN_COUNTS)
-                    if args.lm_backbone in ["llama7B", "llama13B", "llama30B", "llama65B","Llama-3.1-8B-Instruct"]:
+                    if args.lm_backbone in ["llama7B", "llama13B", "llama30B", "llama65B", "Llama-3.1-8B-Instruct", "llama3-8B", "mistral7B-instruct", "mistral7B"]:
                         separations = separation_generator(app_demos + "\n" + aep_demos + "\n" + story_demos + "\n", story_prompt, tokenizer) if args.output_attn else None
                         #prompt_llama_with_caching_llama3
-                        if args.lm_backbone == "Llama-3.1-8B-Instruct":
+                        if args.lm_backbone in ["Llama-3.1-8B-Instruct", "llama3-8B", "mistral7B-instruct", "mistral7B"]:
                             story_generated_text = prompt_llama_with_caching_llama3(generator, prompt, args, lm_cache, example_id, max_tokens=128)
                             
                         else:
@@ -532,8 +535,14 @@ if __name__ == '__main__':
             story_prompt = story_pair_prompt_generator(stories_info[0], stories_info[1])
 
             # Prompt the LM
-            if args.lm_backbone in ['gpt3', "llama7B", "llama13B", "llama30B", "llama65B","Llama-3.1-8B-Instruct"]:
+            if args.lm_backbone in ['gpt3', "llama7B", "llama13B", "llama30B", "llama65B","Llama-3.1-8B-Instruct", "llama3-8B", "mistral7B-instruct", "mistral7B"]:
                 prompt = ""
+                #Add a role if specified
+                if args.role == "careful_story_editor":
+                    prompt += "You are a careful story editor, and you excel at meticulously analyzing narratives for logical consistency and causal relationships.\n"
+                elif args.role == "interior_decorator":
+                    prompt += "You are an interior decorator, and you excel at analyzing room layouts and ensuring objects are arranged logically and used appropriately.\n"
+                    
                 # To fully specify physical state prediction step, prepend several demos of it covering all physical attributes first
                 ##########################################################
                 # if you are using llama7b8bit, adding app demos and aep demos will be a problem caused repeated generation, try commenting the following:
@@ -551,10 +560,10 @@ if __name__ == '__main__':
                 if args.lm_backbone == 'gpt3':
                     story_generated_text = prompt_gpt3_with_caching(prompt, args, lm_cache, example_id, max_tokens=128, 
                                                                     token_counts=TOKEN_COUNTS)
-                if args.lm_backbone in ["llama7B", "llama13B", "llama30B", "llama65B","Llama-3.1-8B-Instruct"]:
+                if args.lm_backbone in ["llama7B", "llama13B", "llama30B", "llama65B","Llama-3.1-8B-Instruct", "llama3-8B", "mistral7B-instruct", "mistral7B"]:
                     
                     separations = separation_generator(app_demos + "\n" + aep_demos + "\n" + story_demos + "\n", story_prompt, tokenizer) if args.output_attn else None
-                    if args.lm_backbone == "Llama-3.1-8B-Instruct":
+                    if args.lm_backbone in ["Llama-3.1-8B-Instruct", "llama3-8B", "mistral7B-instruct", "mistral7B"]:
                         story_generated_text = prompt_llama_with_caching_llama3(generator, prompt, args, lm_cache, example_id, max_tokens=128)
                     else:
                         story_generated_text = prompt_llama_with_caching(model, tokenizer, prompt, args, lm_cache, example_id, max_tokens=128, output_attn=args.output_attn, separations=separations)
