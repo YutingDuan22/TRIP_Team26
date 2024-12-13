@@ -27,7 +27,7 @@ from eval.trip import trip_metrics, trip_metrics_for_one_pred,\
                       story_pair_demo_generator_topdown, story_pair_demo_generator_topdown_ask_implausible, story_pair_demo_generator_bottomup_compact, story_pair_prompt_generator, \
                       generate_aep_demos, generate_app_demos, generate_aep_demos_fully_separate_familiarization, generate_app_demos_fully_separate_familiarization,\
                       add_trip_preds_topdown, add_trip_preds_topdown_ask_implausible, add_trip_preds_bottomup_compact, \
-                      balanced_sample_story_ids
+                      balanced_sample_story_ids, explicit_implicit_sample_story_ids
 from models import get_chat_message, API_COSTS, prompt_gpt3_with_caching, prompt_llama_with_caching, prompt_llama_with_caching_llama3, prompt_chat_gpt_with_caching, prompt_fastchat_with_caching, VICUNA13B_PATH, ALPACA13B_PATH, get_65b_device_mapping
 from ICL.utils import get_output_dir_name
 from ICL.visualization import separation_generator
@@ -39,8 +39,9 @@ if __name__ == '__main__':
     parser.add_argument("--lm_backbone", default="gpt3", choices=["gpt3", "gpt4", "chatgpt", "alpaca13b", "vicuna13b",  "llama7B", "llama13B", "llama30B", "llama65B","llama70B", "Llama-3.1-8B-Instruct", "llama3-8B", "mistral7B-instruct", "mistral7B"])
     parser.add_argument("--model_path", default=None, type=str)
     parser.add_argument("--local_only", action="store_true", default=False)
-    parser.add_argument("--demo_choice", default="stories-4", choices=["stories-4", "balanced-6", "custom_stories4","custom","custom_opt_rep"]) #*
+    parser.add_argument("--demo_choice", default="stories-4", choices=["stories-4", "balanced-6", "custom_stories4", "custom", "custom_opt_rep", "auto_select"]) #*
     parser.add_argument("--example_list", default=None, nargs='+', type=str)
+    parser.add_argument("--n_of_explicit_and_n_of_implicit_demos", default=None, nargs='+', type=int) #*
     parser.add_argument("--api_key", type=str)
     parser.add_argument("--ask_implausible", type=bool, default=False)
     parser.add_argument("--analyze_attention", action="store_true", default=False)
@@ -99,6 +100,7 @@ if __name__ == '__main__':
                                       "train_107",
                                       "train_51",
                                       "train_311"]
+      
     elif args.demo_choice == "balanced-6":
         train_dataset = load_trip_dataset(exclude_multi_confl=False, condense_multiple_conflict=False, reduce_options=False)["train"]
         # sample 2 stories for 3 types of conflict
@@ -108,6 +110,11 @@ if __name__ == '__main__':
         train_dataset = load_trip_dataset(exclude_multi_confl=False, condense_multiple_conflict=False, reduce_options=False)["train"]
         selected_story_example_ids = args.example_list
         
+
+    elif args.demo_choice == "auto_select":
+        train_dataset = load_trip_dataset(exclude_multi_confl=False, condense_multiple_conflict=False, reduce_options=False)["train"]
+        explicit_id, implicit_id = explicit_implicit_sample_story_ids(train_dataset, select_n_stories_for_explicit_demos=args.n_of_explicit_and_n_of_implicit_demos[0], select_n_stories_for_implicit_demos=args.n_of_explicit_and_n_of_implicit_demos[1])
+        selected_story_example_ids = explicit_id + implicit_id
         
     elif args.demo_choice =="custom_stories4":
         
