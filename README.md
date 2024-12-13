@@ -15,6 +15,9 @@ Datasets fot transfer learning: \
 2)Physical Interaction: Question and Answering (PIQA)
 
 Code Implementation: \
+Finetuning: BERT_CE.ipynb, BERT_PIQA; \
+Training and Evaluation on TRIP: withBERT_CE.ipynb, withBERT_PIQA.ipynb
+
 
 
 Results: The BERT model transferred from CE has increased the accuracy of the TRIP benchmark, but not the consistency and verifiability, while the BERT model transferred from PIQA do not have better performance.
