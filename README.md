@@ -46,7 +46,7 @@ python trip_soft_chaining.py --lm_backbone Llama-3.1-8B-Instruct --reduce_option
 
 
 
-## Citation
+
 
 
 
