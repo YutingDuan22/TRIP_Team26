@@ -12,7 +12,7 @@ Datasets fot transfer learning: \
 
 Results and Discussion: The BERT model transferred from CE has increased the accuracy of the TRIP benchmark, but not the consistency and verifiability, while the BERT model transferred from PIQA do not have better performance. The findings highlight the challenges of transfer learning, where task-specific fine-tuning can inadvertently reduce performance on tasks with distinct or broader requirements. 
 
-Given the resultsfrom transfer learning, 
+Given the resultsfrom transfer learning, we switch to HAR with large language models.
 
 
 
