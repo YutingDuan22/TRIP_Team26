@@ -3,14 +3,21 @@ Three approaches to improve performance on the TRIP benchmark: transfer learning
 
 We implement three approaches to improve reasoning on the TRIP Benchmark:
 
-Approach 1: Transfer Learning 
-     Model: “google-bert/bert-large-uncased”  
-     
-     Datasets: Conversational Entailment (CE)¹ 
-               Physical Interaction: Question and Answering (PIQA)²
+## Approach 1: Transfer Learning  
+Model: “google-bert/bert-large-uncased”    
+Datasets fot transfer learning: \
+1)Conversational Entailment (CE) ; \
+2)Physical Interaction: Question and Answering (PIQA)
 
-Approach 2: Model Selection 
+## Approach 2: Model Selection 
 
-Approach 3: Prompting Techniques 
+## Approach 3: Prompting Techniques 
+
+
+## Citation
+
+
+
+
 
 
