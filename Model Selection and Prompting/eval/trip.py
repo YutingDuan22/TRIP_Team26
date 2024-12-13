@@ -48,6 +48,35 @@ def balanced_sample_story_ids(all_stories, select_n_stories_for_each_category=2,
             return selected_idxes
     return selected_idxes
 
+def explicit_implicit_sample_story_ids(all_stories, select_n_stories_for_explicit_demos=5, select_n_stories_for_implicit_demos=0,enable_random_shuffle=False, random_seed=50):
+    # IMPORTANT: if encounters any error, change a random seed!
+    all_stories = list(enumerate(all_stories))
+    random.seed(random_seed)
+    if enable_random_shuffle: random.shuffle(all_stories)
+    explicit_idxes = []
+    implicit_idxes = []
+    n_explicit_confl_stories = 0
+    n_no_explicit_confl_stories = 0
+    for idx, stories in all_stories:
+        stories_info = stories['stories']
+        if stories_info[0]['plausible'] == True:
+            implausible_story = stories_info[1]
+        else:
+            implausible_story = stories_info[0]
+        has_explicit_confl = False
+        if entity_agnostic_confl_candidates_finder(implausible_story) or entity_specific_confl_candidates_finder(implausible_story):
+            has_explicit_confl = True
+
+        if n_explicit_confl_stories < select_n_stories_for_explicit_demos and has_explicit_confl:
+            explicit_idxes.append(stories['example_id'])
+            n_explicit_confl_stories += 1
+        elif n_no_explicit_confl_stories < select_n_stories_for_implicit_demos and (not has_explicit_confl):
+            implicit_idxes.append(stories['example_id'])
+            n_no_explicit_confl_stories += 1
+        if n_explicit_confl_stories == select_n_stories_for_explicit_demos and n_no_explicit_confl_stories == select_n_stories_for_implicit_demos:
+            return explicit_idxes, implicit_idxes
+    return explicit_idxes, implicit_idxes
+
 def state_make_readable(sentence_idx, entity_idx, entities, states):
     this_states = {'sentence_idx': sentence_idx, 
                 'entity_name': entities[entity_idx],
