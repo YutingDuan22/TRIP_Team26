@@ -1,7 +1,7 @@
 # TRIP_Team26
 Three approaches to improve performance on the TRIP benchmark: transfer learning, model selection, and fine-tuning
 
-We implement three approaches to improve reasoning on the TRIP Benchmark mainly based on two previous papers, TRIP (https://aclanthology.org/2021.findings-emnlp.422/) and HAR (https://aclanthology.org/2023.emnlp-main.456/)
+We implement three approaches to improve reasoning on the TRIP Benchmark mainly based on two previous papers, TRIP (https://aclanthology.org/2021.findings-emnlp.422/) and HAR (https://aclanthology.org/2023.emnlp-main.456/).
 
 ## Approach 1: Transfer Learning with BERT
 Model: “google-bert/bert-large-uncased”    
