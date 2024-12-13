@@ -24,9 +24,9 @@ Our evaluation tests a variety of models that differ by developer (LLaMA vs. Mis
 
 ## Approach 3: Incorporating Advanced Prompting Techniques
 ### Number Of Demonstrations
-'''
+```
 python trip_soft_chaining.py --lm_backbone Llama-3.1-8B-Instruct --reduce_options --model_path meta-llama/Llama-3.1-8B-Instruct --demo_choice custom --example_list train_1 train_8 train_691 train_693 train_694
-'''
+```
 ### Variance Due To Demo Selection
 
 ### Role-Playing Prompts
