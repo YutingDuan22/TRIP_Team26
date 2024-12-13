@@ -15,7 +15,7 @@ Datasets fot transfer learning: \
 2)Physical Interaction: Question and Answering (PIQA)
 
 Code Implementation: \
-Finetuning: BERT_CE.ipynb, BERT_PIQA; \
+Finetuning: BERT_CE.ipynb, BERT_PIQA.ipynb; \
 Training and Evaluation on TRIP: withBERT_CE.ipynb, withBERT_PIQA.ipynb
 
 
