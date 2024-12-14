@@ -23,7 +23,7 @@ Training and Evaluation on TRIP: withBERT_CE.ipynb, withBERT_PIQA.ipynb
 Download `glove.6B.50d.txt` into the folder:
 
 ```
-cd ICL
+cd "Model Selection and Prompting"/ICL
 wget https://nlp.stanford.edu/data/glove.6B.zip
 unzip glove.6B.zip -d glove.6B
 rm glove.6B.zip
@@ -32,10 +32,6 @@ rm glove.6B.zip
 We only need `glove.6B.50d.txt``, you can delete the other glove files if space is an issue.
 
 ## Approach 2: Model Selection: Use Large Language Model
-Before reproducing results, navigate to the appropriate folder:
-```
-cd "Model Selection and Prompting/ICL"
-```
 Our evaluation encompasses a range of models that vary across several dimensions, including architecture (e.g., LLaMA vs. Mistral), parameter scale (7B, 8B, or 13B), the application of instruction fine-tuning, and model versions (LLaMA 2 vs. LLaMA 3) to isolate which aspects of these models improve performance the most. Our best-performing model is Mistral-7b-Instruct-v0.3, which achieves 61.97% accuracy, 40.14% consistency, and 27.46% verifiability on the TRIP benchmark.
 
 Run the following commands to reproduce Table 4 results.
