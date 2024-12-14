@@ -37,99 +37,99 @@ Our evaluation encompasses a range of models that vary across several dimensions
 Run the following commands to reproduce Table 4 results.
 ### LLaMA-2-7B
 ```
-python trip_soft_chaining.py --lm_backbone llama7B --reduce_options --model_path meta-llama/Llama-2-7b-hf
+python trip_soft_chaining_obj.py --lm_backbone llama7B --reduce_options --model_path meta-llama/Llama-2-7b-hf
 ```
 ### LLaMA-2-13B
 ```
-python trip_soft_chaining.py --lm_backbone llama13B  --reduce_options --model_path meta-llama/Llama-2-13b-hf
+python trip_soft_chaining_obj.py --lm_backbone llama13B  --reduce_options --model_path meta-llama/Llama-2-13b-hf
 ```
 ### LLaMA-3.1-8B
 ```
-python trip_soft_chaining.py --lm_backbone llama3-8B --reduce_options --model_path meta-llama/Llama-3.1-8B
+python trip_soft_chaining_obj.py --lm_backbone llama3-8B --reduce_options --model_path meta-llama/Llama-3.1-8B
 ```
 ### LLaMA-3.1-8B-instruct
 ```
-python trip_soft_chaining.py --lm_backbone Llama-3.1-8B-Instruct --reduce_options --model_path meta-llama/Llama-3.1-8B-Instruct
+python trip_soft_chaining_obj.py --lm_backbone Llama-3.1-8B-Instruct --reduce_options --model_path meta-llama/Llama-3.1-8B-Instruct
 ```
 ### Mistral-v0.3-7B
 ```
-python trip_soft_chaining.py --lm_backbone mistral7B --reduce_options --model_path mistralai/Mistral-7B-v0.3
+python trip_soft_chaining_obj.py --lm_backbone mistral7B --reduce_options --model_path mistralai/Mistral-7B-v0.3
 ```
 ### Mistral-instruct-v0.3-7B
 ```
-python trip_soft_chaining.py --lm_backbone mistral7B-instruct --reduce_options --model_path mistralai/Mistral-7B-Instruct-v0.3
+python trip_soft_chaining_obj.py --lm_backbone mistral7B-instruct --reduce_options --model_path mistralai/Mistral-7B-Instruct-v0.3
 ```
 
 ## Approach 3: Incorporating Advanced Prompting Techniques
 
 ### Number Of Demonstrations
 ```
-python trip_soft_chaining.py --lm_backbone Llama-3.1-8B-Instruct --reduce_options --model_path meta-llama/Llama-3.1-8B-Instruct --demo_choice custom --example_list train_1 train_8 train_691 train_693 train_694
+python trip_soft_chaining_obj.py --lm_backbone Llama-3.1-8B-Instruct --reduce_options --model_path meta-llama/Llama-3.1-8B-Instruct --demo_choice custom --example_list train_1 train_8 train_691 train_693 train_694
 ```
 ### Demo Selection
 #### Mistral-v0.3-7B
 Run following command to use 4 explicit demostrations and 0 implicit demonstration
 ```
-python trip_soft_chaining.py --lm_backbone mistral7B --reduce_options --model_path mistralai/Mistral-7B-v0.3 --demo_choice auto_select --n_of_explicit_and_n_of_implicit_demos 4 0
+python trip_soft_chaining_obj.py --lm_backbone mistral7B --reduce_options --model_path mistralai/Mistral-7B-v0.3 --demo_choice auto_select --n_of_explicit_and_n_of_implicit_demos 4 0
 ```
 Run following command to use 3 explicit demostrations and 1 implicit demonstration
 ```
-python trip_soft_chaining.py --lm_backbone mistral7B --reduce_options --model_path mistralai/Mistral-7B-v0.3 --demo_choice auto_select --n_of_explicit_and_n_of_implicit_demos 3 1
+python trip_soft_chaining_obj.py --lm_backbone mistral7B --reduce_options --model_path mistralai/Mistral-7B-v0.3 --demo_choice auto_select --n_of_explicit_and_n_of_implicit_demos 3 1
 ```
 Run following command to use 2 explicit demostrations and 2 implicit demonstration
 ```
-python trip_soft_chaining.py --lm_backbone mistral7B --reduce_options --model_path mistralai/Mistral-7B-v0.3 --demo_choice auto_select --n_of_explicit_and_n_of_implicit_demos 2 2
+python trip_soft_chaining_obj.py --lm_backbone mistral7B --reduce_options --model_path mistralai/Mistral-7B-v0.3 --demo_choice auto_select --n_of_explicit_and_n_of_implicit_demos 2 2
 ```
 Run following command to use 1 explicit demostrations and 3 implicit demonstration
 ```
-python trip_soft_chaining.py --lm_backbone mistral7B --reduce_options --model_path mistralai/Mistral-7B-v0.3 --demo_choice auto_select --n_of_explicit_and_n_of_implicit_demos 1 3
+python trip_soft_chaining_obj.py --lm_backbone mistral7B --reduce_options --model_path mistralai/Mistral-7B-v0.3 --demo_choice auto_select --n_of_explicit_and_n_of_implicit_demos 1 3
 ```
 Run following command to use 0 explicit demostrations and 4 implicit demonstration
 ```
-python trip_soft_chaining.py --lm_backbone mistral7B --reduce_options --model_path mistralai/Mistral-7B-v0.3 --demo_choice auto_select --n_of_explicit_and_n_of_implicit_demos 0 4
+python trip_soft_chaining_obj.py --lm_backbone mistral7B --reduce_options --model_path mistralai/Mistral-7B-v0.3 --demo_choice auto_select --n_of_explicit_and_n_of_implicit_demos 0 4
 ```
 
 #### Mistral-instruct-v0.3-7B
 Run following command to use 4 explicit demostrations and 0 implicit demonstration
 ```
-python trip_soft_chaining.py --lm_backbone mistral7B-instruct --reduce_options --model_path mistralai/Mistral-7B-Instruct-v0.3 --demo_choice auto_select --n_of_explicit_and_n_of_implicit_demos 4 0
+python trip_soft_chaining_obj.py --lm_backbone mistral7B-instruct --reduce_options --model_path mistralai/Mistral-7B-Instruct-v0.3 --demo_choice auto_select --n_of_explicit_and_n_of_implicit_demos 4 0
 ```
 Run following command to use 3 explicit demostrations and 1 implicit demonstration
 ```
-python trip_soft_chaining.py --lm_backbone mistral7B-instruct --reduce_options --model_path mistralai/Mistral-7B-Instruct-v0.3 --demo_choice auto_select --n_of_explicit_and_n_of_implicit_demos 3 1
+python trip_soft_chaining_obj.py --lm_backbone mistral7B-instruct --reduce_options --model_path mistralai/Mistral-7B-Instruct-v0.3 --demo_choice auto_select --n_of_explicit_and_n_of_implicit_demos 3 1
 ```
 Run following command to use 2 explicit demostrations and 2 implicit demonstration
 ```
-python trip_soft_chaining.py --lm_backbone mistral7B-instruct --reduce_options --model_path mistralai/Mistral-7B-Instruct-v0.3 --demo_choice auto_select --n_of_explicit_and_n_of_implicit_demos 2 2
+python trip_soft_chaining_obj.py --lm_backbone mistral7B-instruct --reduce_options --model_path mistralai/Mistral-7B-Instruct-v0.3 --demo_choice auto_select --n_of_explicit_and_n_of_implicit_demos 2 2
 ```
 Run following command to use 1 explicit demostrations and 3 implicit demonstration
 ```
-python trip_soft_chaining.py --lm_backbone mistral7B-instruct --reduce_options --model_path mistralai/Mistral-7B-Instruct-v0.3 --demo_choice auto_select --n_of_explicit_and_n_of_implicit_demos 1 3
+python trip_soft_chaining_obj.py --lm_backbone mistral7B-instruct --reduce_options --model_path mistralai/Mistral-7B-Instruct-v0.3 --demo_choice auto_select --n_of_explicit_and_n_of_implicit_demos 1 3
 ```
 Run following command to use 0 explicit demostrations and 4 implicit demonstration
 ```
-python trip_soft_chaining.py --lm_backbone mistral7B-instruct --reduce_options --model_path mistralai/Mistral-7B-Instruct-v0.3 --demo_choice auto_select --n_of_explicit_and_n_of_implicit_demos 0 4
+python trip_soft_chaining_obj.py --lm_backbone mistral7B-instruct --reduce_options --model_path mistralai/Mistral-7B-Instruct-v0.3 --demo_choice auto_select --n_of_explicit_and_n_of_implicit_demos 0 4
 ```
 
 ### Role-Playing Prompts
 #### Mistral-v0.3-7B
 Run following command to use "careful story editor" role
 ```
-python trip_soft_chaining.py --lm_backbone mistral7B --reduce_options --model_path mistralai/Mistral-7B-v0.3 --role careful_story_editor
+python trip_soft_chaining_obj.py --lm_backbone mistral7B --reduce_options --model_path mistralai/Mistral-7B-v0.3 --role careful_story_editor
 ```
 Run following command to use "interior decorator" role
 ```
-python trip_soft_chaining.py --lm_backbone mistral7B --reduce_options --model_path mistralai/Mistral-7B-v0.3 --role interior_decorator
+python trip_soft_chaining_obj.py --lm_backbone mistral7B --reduce_options --model_path mistralai/Mistral-7B-v0.3 --role interior_decorator
 ```
 
 #### Mistral-instruct-v0.3-7B
 Run following command to use "careful story editor" role
 ```
-python trip_soft_chaining.py --lm_backbone mistral7B-instruct --reduce_options --model_path mistralai/Mistral-7B-Instruct-v0.3 --role careful_story_editor
+python trip_soft_chaining_obj.py --lm_backbone mistral7B-instruct --reduce_options --model_path mistralai/Mistral-7B-Instruct-v0.3 --role careful_story_editor
 ```
 Run following command to use "interior decorator" role
 ```
-python trip_soft_chaining.py --lm_backbone mistral7B-instruct --reduce_options --model_path mistralai/Mistral-7B-Instruct-v0.3 --role interior_decorator
+python trip_soft_chaining_obj.py --lm_backbone mistral7B-instruct --reduce_options --model_path mistralai/Mistral-7B-Instruct-v0.3 --role interior_decorator
 ```
 
 
