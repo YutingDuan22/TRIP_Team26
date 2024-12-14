@@ -43,15 +43,15 @@ Our evaluation tests a variety of models that differ by developer (LLaMA vs. Mis
 python trip_soft_chaining.py --lm_backbone mistral7B --reduce_option --model_path mistralai/Mistral-7B-v0.3 --demo_choice custom --example_list train_1 train_8 train_691 train_693 train_694
 ```
 ### Variance Due To Demo Selection
-#### Optimal few-shot demos selection without substitution
+#### Optimal few-shot demos selection without objects substitution
 ```
 python trip_soft_chaining_obj.py --lm_backbone mistral7B-instruct --reduce_options --model_path mistralai/Mistral-7B-Instruct-v0.3 --demo_choice custom --example_list train_1 train_8 train_691 train_693
 ```
-#### Optimal few-shot demos selection with substitution
+#### Optimal few-shot demos selection with objects substitution
 ```
 python trip_soft_chaining_obj.py --lm_backbone mistral7B-instruct --reduce_options --model_path mistralai/Mistral-7B-Instruct-v0.3 --demo_choice custom_opt_rep
 ```
-#### Default demos selection with substitution
+#### Default demos selection with objects substitution
 
 ```
 python trip_soft_chaining_obj.py --lm_backbone mistral7B-instruct --reduce_options --model_path mistralai/Mistral-7B-Instruct-v0.3 --demo_choice custom_stories4
