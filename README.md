@@ -1,13 +1,14 @@
 # TRIP_Team26
-Three approaches to improve performance on the TRIP benchmark: transfer learning, model selection, and fine-tuning
+The Tiered Reasoning for Intuitive Physics (TRIP) Benchmark (Storks et al., 2021) conducts a tiered evaluation of a model's physical commonsense reasoning. Our project implements three approaches to improve performance on the TRIP benchmark: transfer learning, model selection, and advanced prompting techniques.
 
-We implement three approaches to improve reasoning on the TRIP Benchmark mainly based on two previous papers, TRIP (https://aclanthology.org/2021.findings-emnlp.422/) and HAR (https://aclanthology.org/2023.emnlp-main.456/).
+Our project primarily builds upon two previous papers: TRIP (https://aclanthology.org/2021.findings-emnlp.422/) and HAR (https://aclanthology.org/2023.emnlp-main.456/). Accordingly, the base of our repository comes from the repositories of these two papers.
+
+## Approach 1: Transfer Learning with BERT
 
 ```
 %cd Transfer Learning
 ```
 
-## Approach 1: Transfer Learning with BERT
 Model: “google-bert/bert-large-uncased”    
 
 Datasets fot transfer learning: \
@@ -25,13 +26,14 @@ Results: The BERT model transferred from CE has increased the accuracy of the TR
 
 Given the challenges of transfer learning, we switch to HAR with large language models.
 
+
+## Approach 2: Model Selection: Use Large Language Model
+
 ```
 %cd Model Selection and Prompting
 ```
 
-
-## Approach 2: Model Selection: Use Large Language Model
-Our evaluation tests a variety of models that differ by developer (LLaMA vs. Mistral), number of parameters (7, 8, or 13 billion), instruction fine-tuning (included or not), and version (LLaMA 2 vs. LLaMA 3) in order to isolate which aspects of these models improve performance the most. Our best-performing model is Mistral-7b-Instruct-v0.3, which achieves strong performance of 40.14% consistency and 27.46% verifiability on the two low-level reasoning tasks.
+Our evaluation tests a variety of models that differ by developer (LLaMA vs. Mistral), number of parameters (7, 8, or 13 billion), instruction fine-tuning (included or not), and version (LLaMA 2 vs. LLaMA 3) in order to isolate which aspects of these models improve performance the most. Our best-performing model is Mistral-7b-Instruct-v0.3, which achieves strong performance of 61.97% accuracy, 40.14% consistency, and 27.46% verifiability on the TRIP benchmark.
 
 
 
