@@ -21,9 +21,6 @@ Training and Evaluation on TRIP: withBERT_CE.ipynb, withBERT_PIQA.ipynb
 
 
 
-Results: The BERT model transferred from CE has increased the accuracy of the TRIP benchmark, but not the consistency and verifiability, while the BERT model transferred from PIQA do not have better performance.
-
-
 Given the challenges of transfer learning, we switch to HAR with large language models.
 
 
