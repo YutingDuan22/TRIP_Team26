@@ -6,7 +6,7 @@ Our project primarily builds upon two previous papers: TRIP (https://aclantholog
 ## Approach 1: Transfer Learning with BERT
 
 ```
-%cd Transfer Learning
+cd Transfer Learning
 ```
 
 Model: “google-bert/bert-large-uncased”    
@@ -30,7 +30,7 @@ Given the challenges of transfer learning, we switch to HAR with large language 
 ## Approach 2: Model Selection: Use Large Language Model
 
 ```
-%cd Model Selection and Prompting
+cd Model Selection and Prompting
 ```
 
 Our evaluation tests a variety of models that differ by developer (LLaMA vs. Mistral), number of parameters (7, 8, or 13 billion), instruction fine-tuning (included or not), and version (LLaMA 2 vs. LLaMA 3) in order to isolate which aspects of these models improve performance the most. Our best-performing model is Mistral-7b-Instruct-v0.3, which achieves strong performance of 61.97% accuracy, 40.14% consistency, and 27.46% verifiability on the TRIP benchmark.
@@ -40,7 +40,7 @@ Our evaluation tests a variety of models that differ by developer (LLaMA vs. Mis
 ## Approach 3: Incorporating Advanced Prompting Techniques
 ### Number Of Demonstrations
 ```
-python trip_soft_chaining.py --lm_backbone Llama-3.1-8B-Instruct --reduce_options --model_path meta-llama/Llama-3.1-8B-Instruct --demo_choice custom --example_list train_1 train_8 train_691 train_693 train_694
+python trip_soft_chaining.py --lm_backbone mistral7B --reduce_option --model_path mistralai/Mistral-7B-v0.3 --demo_choice custom --example_list train_1 train_8 train_691 train_693 train_694
 ```
 ### Variance Due To Demo Selection
 
