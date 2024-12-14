@@ -6,7 +6,7 @@ Our project primarily builds upon two previous papers: TRIP (https://aclantholog
 ## Approach 1: Transfer Learning with BERT
 
 ```
-cd Transfer Learning
+cd "Transfer Learning"
 ```
 
 Model: “google-bert/bert-large-uncased”    
