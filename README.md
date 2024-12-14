@@ -66,7 +66,7 @@ python trip_soft_chaining_obj.py --lm_backbone mistral7B-instruct --reduce_optio
 ```
 python trip_soft_chaining_obj.py --lm_backbone Llama-3.1-8B-Instruct --reduce_options --model_path meta-llama/Llama-3.1-8B-Instruct --demo_choice custom --example_list train_1 train_8 train_691 train_693 train_694
 ```
-### Demo Selection
+### Demo Selection: Explicit - Implicit Comflict Demonstrations
 #### Mistral-v0.3-7B
 Run following command to use 4 explicit demostrations and 0 implicit demonstration
 ```
@@ -110,8 +110,21 @@ Run following command to use 0 explicit demostrations and 4 implicit demonstrati
 ```
 python trip_soft_chaining_obj.py --lm_backbone mistral7B-instruct --reduce_options --model_path mistralai/Mistral-7B-Instruct-v0.3 --demo_choice auto_select --n_of_explicit_and_n_of_implicit_demos 0 4
 ```
+### Demo Selection: Object Substitution
+#### Optimal few-shot demos selection without objects substitution
+```
+python trip_soft_chaining_obj.py --lm_backbone mistral7B-instruct --reduce_options --model_path mistralai/Mistral-7B-Instruct-v0.3 --demo_choice custom --example_list train_1 train_8 train_691 train_693
+```
+#### Optimal few-shot demos selection with objects substitution
+```
+python trip_soft_chaining_obj.py --lm_backbone mistral7B-instruct --reduce_options --model_path mistralai/Mistral-7B-Instruct-v0.3 --demo_choice custom_opt_rep
+```
+#### Default demos selection with objects substitution
+```
+python trip_soft_chaining_obj.py --lm_backbone mistral7B-instruct --reduce_options --model_path mistralai/Mistral-7B-Instruct-v0.3 --demo_choice custom_stories4
+```
 
-### Role-Playing Prompts
+### Role-Playing
 #### Mistral-v0.3-7B
 Run following command to use "careful story editor" role
 ```
