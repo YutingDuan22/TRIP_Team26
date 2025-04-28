@@ -1,6 +1,8 @@
 # TRIP_Team26
 The Tiered Reasoning for Intuitive Physics (TRIP) Benchmark (Storks et al., 2021) conducts a tiered evaluation of a model's physical commonsense reasoning. Our project implements three approaches to improve performance on the TRIP benchmark: transfer learning, model selection, and advanced prompting techniques.
 
+Our paper is available at https://openreview.net/forum?id=IQCzWGn2cM
+
 Our project primarily builds upon two previous papers: TRIP (https://aclanthology.org/2021.findings-emnlp.422/) and HAR (https://aclanthology.org/2023.emnlp-main.456/). Accordingly, the base of our repository comes from the repositories of these two papers.
 
 ## Approach 1: Transfer Learning with BERT
