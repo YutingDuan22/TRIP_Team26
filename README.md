@@ -1,4 +1,4 @@
-# TRIP_Team26
+# Improving LLM Reasoning on the TRIP Benchmark
 The Tiered Reasoning for Intuitive Physics (TRIP) Benchmark (Storks et al., 2021) conducts a tiered evaluation of a model's physical commonsense reasoning. Our project implements three approaches to improve performance on the TRIP benchmark: transfer learning, model selection, and advanced prompting techniques.
 
 Our paper is available at https://openreview.net/forum?id=IQCzWGn2cM
